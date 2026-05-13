@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discovery — The Vermillion Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@200;300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --vermillion: #C83E2E;
+  --vermillion-deep: #9B2D22;
+  --sindoor: #E04A35;
+  --gold: #C4A35A;
+  --gold-light: #D4BC7E;
+  --ivory: #FAF6F0;
+  --cream: #F2ECE2;
+  --warm-white: #FFFDF9;
+  --dark: #1A110E;
+  --dark-warm: #2C1E18;
+  --text: #2C1E18;
+  --text-muted: #7A6558;
+  --text-light: #A6978C;
+  --border: rgba(44,30,24,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--warm-white);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== NAV ===== */
+.nav {
+  padding: 28px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ivory);
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--vermillion);
+  border-radius: 50%;
+  position: relative;
+}
+
+.logo-mark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.logo-text span { color: var(--vermillion); }
+
+.nav-back {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-back:hover { color: var(--gold); }
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--dark);
+  padding: 180px 80px 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 500px 400px at 15% 40%, rgba(200,62,46,0.07), transparent),
+    radial-gradient(ellipse 400px 300px at 85% 70%, rgba(196,163,90,0.04), transparent);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--vermillion), transparent);
+  opacity: 0.3;
+}
+
+.hero-inner {
+  max-width: 860px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(200,62,46,0.12);
+  border: 1px solid rgba(200,62,46,0.2);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--sindoor);
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: slideUp 0.7s ease-out 0.1s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--ivory);
+  line-height: 1.12;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: slideUp 0.7s ease-out 0.25s forwards;
+}
+
+.hero h1 i { font-style: italic; color: var(--sindoor); }
+
+.hero-sub {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(250,246,240,0.5);
+  font-weight: 300;
+  max-width: 620px;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: slideUp 0.7s ease-out 0.4s forwards;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 48px;
+  opacity: 0;
+  animation: slideUp 0.7s ease-out 0.55s forwards;
+}
+
+.hero-meta-item .val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--ivory);
+  font-weight: 400;
+}
+
+.hero-meta-item .val small {
+  font-size: 0.55em;
+  color: var(--gold);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.hero-meta-item .lbl {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(250,246,240,0.3);
+  margin-top: 4px;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PAIN SECTION ===== */
+.pain {
+  padding: 100px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pain-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 28px;
+}
+
+.pain h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 56px;
+  max-width: 700px;
+}
+
+.pain h2 i { font-style: italic; color: var(--vermillion); }
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+
+.pain-item {
+  padding: 36px 40px;
+  border: 1px solid var(--border);
+  margin: -0.5px;
+  position: relative;
+}
+
+.pain-item::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 40px;
+  width: 20px;
+  height: 2px;
+  background: var(--vermillion);
+  opacity: 0.4;
+}
+
+.pain-item .pi-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+
+.pain-item .pi-desc {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ===== THE OFFERING ===== */
+.offering {
+  background: var(--dark);
+  padding: 120px 80px;
+  position: relative;
+}
+
+.offering::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--vermillion), transparent);
+  opacity: 0.3;
+}
+
+.offering-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.offering-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.offering h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--ivory);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.offering h2 i { font-style: italic; color: var(--sindoor); }
+
+.offering-desc {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(250,246,240,0.4);
+  font-weight: 300;
+  max-width: 640px;
+  margin-bottom: 72px;
+}
+
+/* Week blocks */
+.weeks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.week {
+  background: rgba(250,246,240,0.02);
+  border: 1px solid rgba(250,246,240,0.04);
+  padding: 44px 36px;
+  transition: all 0.4s;
+  position: relative;
+}
+
+.week::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--vermillion);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.week:hover { background: rgba(200,62,46,0.04); }
+.week:hover::after { transform: scaleX(1); }
+
+.week-num {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.week-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--ivory);
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+
+.week-activities {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.week-activities li {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(250,246,240,0.4);
+  font-weight: 300;
+  padding-left: 16px;
+  position: relative;
+}
+
+.week-activities li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 1px;
+  background: var(--vermillion);
+}
+
+.week-deliverable {
+  padding-top: 20px;
+  border-top: 1px solid rgba(250,246,240,0.06);
+}
+
+.week-deliverable .del-label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 6px;
+}
+
+.week-deliverable .del-text {
+  font-size: 0.85rem;
+  color: rgba(250,246,240,0.55);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ===== WHAT YOU GET ===== */
+.deliverables {
+  padding: 120px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.deliverables-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 24px;
+}
+
+.deliverables h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 56px;
+  max-width: 600px;
+}
+
+.deliverables h2 i { font-style: italic; color: var(--vermillion); }
+
+.del-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.del-card {
+  padding: 36px;
+  background: var(--cream);
+  position: relative;
+  transition: all 0.3s;
+}
+
+.del-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(44,30,24,0.06); }
+
+.del-card .del-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: rgba(200,62,46,0.12);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.del-card .del-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.del-card .del-desc {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ===== ECONOMICS SECTION ===== */
+.economics {
+  background: var(--cream);
+  padding: 120px 80px;
+  position: relative;
+}
+
+.economics-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.economics-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 24px;
+}
+
+.economics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 28px;
+}
+
+.economics h2 i { font-style: italic; color: var(--vermillion); }
+
+.economics-text {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.economics-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Comparison box */
+.compare-box {
+  background: var(--dark);
+  padding: 48px 44px;
+  position: relative;
+}
+
+.compare-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--vermillion);
+}
+
+.compare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(250,246,240,0.04);
+}
+
+.compare-row:last-child { border-bottom: none; }
+
+.compare-row.highlight {
+  padding: 24px 0;
+  margin-top: 8px;
+  border-top: 1px solid rgba(200,62,46,0.2);
+  border-bottom: none;
+}
+
+.cr-label {
+  font-size: 0.82rem;
+  color: rgba(250,246,240,0.4);
+  font-weight: 300;
+}
+
+.cr-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--ivory);
+  font-weight: 500;
+  text-align: right;
+}
+
+.cr-val.loss { color: #E85A4F; }
+.cr-val.save { color: #5CB87A; }
+
+.compare-row.highlight .cr-label {
+  font-weight: 500;
+  color: var(--ivory);
+  font-size: 0.88rem;
+}
+
+.compare-row.highlight .cr-val {
+  font-size: 1.4rem;
+  color: var(--vermillion);
+}
+
+.compare-caption {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: rgba(250,246,240,0.25);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ===== WHO IT'S FOR ===== */
+.audience {
+  padding: 120px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.audience-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  margin-bottom: 24px;
+}
+
+.audience h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 56px;
+}
+
+.audience h2 i { font-style: italic; color: var(--vermillion); }
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.aud-card {
+  padding: 36px 32px;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+
+.aud-card:hover { border-color: var(--vermillion); }
+
+.aud-card .aud-icon {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  opacity: 0.7;
+}
+
+.aud-card .aud-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.aud-card .aud-desc {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ===== FAQ ===== */
+.faq {
+  background: var(--dark);
+  padding: 120px 80px;
+  position: relative;
+}
+
+.faq::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--vermillion), transparent);
+  opacity: 0.3;
+}
+
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--ivory);
+  line-height: 1.25;
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.faq h2 i { font-style: italic; color: var(--sindoor); }
+
+.faq-item {
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(250,246,240,0.06);
+  cursor: pointer;
+}
+
+.faq-item:first-child { border-top: 1px solid rgba(250,246,240,0.06); }
+
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.faq-q .q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--ivory);
+  font-weight: 500;
+}
+
+.faq-q .q-toggle {
+  font-size: 1.2rem;
+  color: var(--vermillion);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.faq-item.open .q-toggle { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding-top: 16px;
+}
+
+.faq-a p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: rgba(250,246,240,0.4);
+  font-weight: 300;
+}
+
+/* ===== CTA ===== */
+.cta {
+  padding: 140px 80px;
+  text-align: center;
+  background: var(--warm-white);
+  position: relative;
+}
+
+.cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta-orn {
+  color: var(--vermillion);
+  opacity: 0.2;
+  font-size: 1.6rem;
+  margin-bottom: 32px;
+}
+
+.cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.cta h2 i { font-style: italic; color: var(--vermillion); }
+
+.cta-sub {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 44px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-price {
+  margin-bottom: 40px;
+}
+
+.cta-price .price {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.cta-price .price-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 20px 56px;
+  background: var(--vermillion);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.4s;
+  margin-bottom: 32px;
+}
+
+.cta-btn:hover { background: var(--vermillion-deep); }
+
+.cta-or {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.cta-contact {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.cta-contact a {
+  color: var(--vermillion);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200,62,46,0.25);
+  transition: border-color 0.3s;
+}
+
+.cta-contact a:hover { border-color: var(--vermillion); }
+
+.cta-guarantee {
+  margin-top: 48px;
+  padding: 24px 36px;
+  background: var(--cream);
+  display: inline-block;
+  max-width: 480px;
+}
+
+.cta-guarantee p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.cta-guarantee strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ===== FOOTER ===== */
+.footer-min {
+  background: var(--dark);
+  padding: 32px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-min p {
+  font-size: 0.72rem;
+  color: rgba(250,246,240,0.2);
+}
+
+.footer-min a {
+  font-size: 0.72rem;
+  color: rgba(250,246,240,0.35);
+  text-decoration: none;
+}
+
+.footer-min a:hover { color: var(--vermillion); }
+
+/* ===== SCROLL REVEAL ===== */
+.rv {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: all 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.rv.vis {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .economics-inner { grid-template-columns: 1fr; gap: 48px; }
+  .weeks { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; }
+  .nav-back { display: none; }
+  .hero { padding: 140px 24px 80px; }
+  .hero-meta { flex-direction: column; gap: 24px; }
+  .pain { padding: 80px 24px; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .offering { padding: 80px 24px; }
+  .weeks { grid-template-columns: 1fr; }
+  .deliverables { padding: 80px 24px; }
+  .del-grid { grid-template-columns: 1fr; }
+  .economics { padding: 80px 24px; }
+  .audience { padding: 80px 24px; }
+  .faq { padding: 80px 24px; }
+  .cta { padding: 80px 24px; }
+  .footer-min { padding: 24px; flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <div class="logo-mark"></div>
+    <div class="logo-text">The <span>Vermillion</span> Studio</div>
+  </a>
+  <a href="#" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">New Offering</div>
+    <h1>Don't Plan Your Wedding.<br><i>Discover</i> It First.</h1>
+    <p class="hero-sub">A 3-week, fixed-cost engagement where we do the hard thinking with you — so you walk into your wedding planning process with absolute clarity, zero vendor confusion, and a roadmap that actually works.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="val">₹1.5<small>L</small></div>
+        <div class="lbl">Fixed Investment</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="val">3</div>
+        <div class="lbl">Weeks Duration</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="val">4</div>
+        <div class="lbl">Concrete Deliverables</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="rv">
+    <p class="pain-label">The Problem Nobody Talks About</p>
+    <h2>You're about to spend ₹15–80 lakh on something you've <i>never done before</i>, with no framework, no benchmarks, and an audience of 47 family members who all have opinions.</h2>
+  </div>
+
+  <div class="pain-grid rv">
+    <div class="pain-item">
+      <div class="pi-title">The ₹2–5 Lakh You'll Never See</div>
+      <div class="pi-desc">Vendor kickbacks are the industry's open secret. Without knowing real market rates and cost structures, you're paying a hidden surcharge on nearly every booking — and no one tells you.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">The Pinterest–Budget Collision</div>
+      <div class="pi-desc">You've seen what ₹5 crore weddings look like on Instagram. Your budget is ₹25 lakh. Nobody has helped you build a vision that's beautiful within your actual numbers — so every vendor conversation becomes a disappointment.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">The 12-Person Decision Committee</div>
+      <div class="pi-desc">Your wedding client isn't just the couple — it's the parents, the in-laws, the chachi who's done "7 weddings." Without a structured decision framework, you're managing a family parliament, not a celebration.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pi-title">The WhatsApp Black Hole</div>
+      <div class="pi-desc">Six family groups, three vendor threads, one nuclear combine chat. Zero confirmed decisions. Without a project structure, your ₹25-lakh wedding becomes a 4,000-message archaeological dig.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERING -->
+<section class="offering">
+  <div class="offering-inner">
+    <div class="rv">
+      <p class="offering-label">The Discovery Sprint</p>
+      <h2>3 weeks. Full clarity. <i>Before</i> you commit a single rupee to any vendor.</h2>
+      <p class="offering-desc">We sit with you and your family, absorb the rituals, constraints, and dreams — and turn them into an actionable blueprint. Think of it as hiring an architect before you start building.</p>
+    </div>
+
+    <div class="weeks rv">
+      <div class="week">
+        <div class="week-num">Week 01</div>
+        <div class="week-title">Listen & Uncover</div>
+        <ul class="week-activities">
+          <li>2× deep-dive sessions with the couple and families</li>
+          <li>Cultural & ritual mapping — every ceremony, every tradition, every non-negotiable</li>
+          <li>Budget reality check — what your number actually buys in today's market</li>
+          <li>Stakeholder alignment — identifying who decides what, and structuring that</li>
+          <li>Venue and date landscape scan for your target window</li>
+        </ul>
+        <div class="week-deliverable">
+          <div class="del-label">Deliverable</div>
+          <div class="del-text">Wedding DNA Brief — your family's complete emotional, cultural, and logistical profile in one document.</div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-num">Week 02</div>
+        <div class="week-title">Design & Envision</div>
+        <ul class="week-activities">
+          <li>Curated vision board built to your actual budget, not fantasy benchmarks</li>
+          <li>Aesthetic direction — décor language, colour story, spatial mood</li>
+          <li>Guest experience mapping — arrival to departure, every ceremony</li>
+          <li>Vendor category landscape — who's credible, what they actually cost, and where the traps are</li>
+          <li>Shortlist of pre-vetted, conflict-free vendor recommendations per category</li>
+        </ul>
+        <div class="week-deliverable">
+          <div class="del-label">Deliverable</div>
+          <div class="del-text">Vision Book — a designed deck your entire family can align around, ending the infinite WhatsApp debate.</div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-num">Week 03</div>
+        <div class="week-title">Engineer & Roadmap</div>
+        <ul class="week-activities">
+          <li>Complete Bill of Quantities — every item, every vendor category, every cost</li>
+          <li>Budget allocation framework with clear guardrails and flex zones</li>
+          <li>12–16 week planning roadmap — what gets booked when, in what order</li>
+          <li>Contract checklist — the clauses that protect you from scope creep, junior substitutions, and post-event payment fights</li>
+          <li>Final handover session with the couple and both families</li>
+        </ul>
+        <div class="week-deliverable">
+          <div class="del-label">Deliverable</div>
+          <div class="del-text">BOQ + Roadmap — a line-item budget and phased execution plan you can hand to any planner or execute yourself.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliverables">
+  <div class="rv">
+    <p class="deliverables-label">What You Walk Away With</p>
+    <h2>Four documents that save you <i>months</i> of confusion</h2>
+  </div>
+
+  <div class="del-grid rv">
+    <div class="del-card">
+      <div class="del-num">01</div>
+      <div class="del-name">Wedding DNA Brief</div>
+      <div class="del-desc">Your family's complete cultural, emotional, and logistical profile. Every ritual mapped. Every stakeholder's priorities documented. Every constraint acknowledged.</div>
+    </div>
+    <div class="del-card">
+      <div class="del-num">02</div>
+      <div class="del-name">Vision Book</div>
+      <div class="del-desc">A designed, shareable deck with your aesthetic direction, spatial concepts, and guest experience flow — calibrated to what your budget actually affords. Ends the "but I saw this on Instagram" loop.</div>
+    </div>
+    <div class="del-card">
+      <div class="del-num">03</div>
+      <div class="del-name">Bill of Quantities</div>
+      <div class="del-desc">Line-item budget across every vendor category with real market rates — not inflated quotes. You'll know what things actually cost before anyone pitches you anything.</div>
+    </div>
+    <div class="del-card">
+      <div class="del-num">04</div>
+      <div class="del-name">Planning Roadmap</div>
+      <div class="del-desc">A phased, week-by-week execution plan: what gets booked when, contract must-haves per vendor, and a decision-making structure so your family stays aligned throughout.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="economics">
+  <div class="economics-inner">
+    <div class="rv">
+      <p class="economics-label">The Math</p>
+      <h2>₹1.5 lakh sounds like a lot — until you see what <i>not</i> spending it costs you</h2>
+      <p class="economics-text">Most couples walk into vendor conversations blind. They don't know real market rates. They can't distinguish a ₹3L decorator from a ₹8L one. They don't know which contract clauses matter. <strong>That gap between what you know and what the vendor knows is where money disappears.</strong></p>
+      <p class="economics-text" style="margin-top:16px;">The Discovery sprint closes that gap before you sign a single contract.</p>
+    </div>
+
+    <div class="rv">
+      <div class="compare-box">
+        <div class="compare-row">
+          <div class="cr-label">Vendor kickbacks you'd never catch</div>
+          <div class="cr-val loss">₹2–5L</div>
+        </div>
+        <div class="compare-row">
+          <div class="cr-label">Overbooking / wrong vendor tier</div>
+          <div class="cr-val loss">₹1–3L</div>
+        </div>
+        <div class="compare-row">
+          <div class="cr-label">Scope creep & post-event disputes</div>
+          <div class="cr-val loss">₹50K–2L</div>
+        </div>
+        <div class="compare-row">
+          <div class="cr-label">Pinterest-reality mismatch rework</div>
+          <div class="cr-val loss">₹1–2L</div>
+        </div>
+        <div class="compare-row">
+          <div class="cr-label">Decision fatigue & family conflict</div>
+          <div class="cr-val loss" style="font-style:italic; font-family:'Outfit',sans-serif; font-size:0.85rem;">Priceless</div>
+        </div>
+        <div class="compare-row highlight">
+          <div class="cr-label">Discovery Investment</div>
+          <div class="cr-val">₹1.5L</div>
+        </div>
+        <p class="compare-caption">Conservative estimate for a ₹20–50L wedding. Actual savings compound as budget increases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience">
+  <div class="rv">
+    <p class="audience-label">Who This Is For</p>
+    <h2>Built for couples who want <i>clarity before commitment</i></h2>
+  </div>
+
+  <div class="audience-grid rv">
+    <div class="aud-card">
+      <div class="aud-icon">◆</div>
+      <div class="aud-title">The First-Time Planners</div>
+      <div class="aud-desc">You've never planned a large-scale celebration before. The sheer number of decisions, vendors, and family dynamics feels overwhelming. You need a structured starting point — not another Pinterest board.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">◆</div>
+      <div class="aud-title">The DIY-ers Who Want a Head Start</div>
+      <div class="aud-desc">You don't want (or need) a full-service planner. But you'd kill for someone to build the blueprint, do the market research, and hand you a plan you can execute yourself — with confidence.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">◆</div>
+      <div class="aud-title">The Budget-Conscious Maximalists</div>
+      <div class="aud-desc">You want extraordinary within your real budget. You know you can't afford to waste money on wrong vendors, misaligned expectations, or the hidden costs nobody warned you about.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <p class="faq-label rv">Common Questions</p>
+    <h2 class="rv">Before you <i>decide</i></h2>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">Is this ₹1.5L adjusted against full planning fees if we hire you?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>Yes. If you choose to engage us for full wedding planning after Discovery, the ₹1.5L is credited entirely toward your planning fee. If you don't — you keep every deliverable and can use them with any planner or on your own.</p></div>
+    </div>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">What if our wedding is under ₹15 lakh?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>Discovery works for weddings from ₹10L to ₹5Cr+. The deliverables scale to your budget. For smaller weddings, the value is even more concentrated — ₹1.5L of planning clarity on a ₹15L wedding prevents disproportionately expensive mistakes.</p></div>
+    </div>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">Do we need both families involved?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>Ideally, yes — at least for the Week 1 sessions. The biggest source of wedding stress isn't vendors. It's misaligned expectations between families. We structure the sessions to surface and resolve those early, before they become mid-planning crises.</p></div>
+    </div>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">How is this different from a "free consultation" every planner offers?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>A free consultation is a sales call. Discovery is a paid, structured engagement with concrete deliverables — a DNA brief, vision book, BOQ, and roadmap. You're paying for objectivity, market intelligence, and a framework. No upselling, no kickback incentives, no hidden agenda.</p></div>
+    </div>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">We already have a planner. Can we still do this?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>Absolutely. Think of Discovery as a second opinion — an independent audit of your plan, budget, and vendor lineup. Several of our clients have used the BOQ to renegotiate existing vendor contracts and saved multiples of the Discovery fee.</p></div>
+    </div>
+
+    <div class="faq-item rv" onclick="this.classList.toggle('open')">
+      <div class="faq-q">
+        <span class="q-text">Can we do this remotely?</span>
+        <span class="q-toggle">+</span>
+      </div>
+      <div class="faq-a"><p>Yes. We run Discovery over video calls for couples based outside Mumbai, Delhi, and Jaipur. The deliverables are identical. For destination weddings, we include a virtual venue and vendor landscape assessment for your target location.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner rv">
+    <div class="cta-orn">✦</div>
+    <h2>Stop guessing.<br>Start with <i>Discovery.</i></h2>
+    <p class="cta-sub">Three weeks from now, you'll have a vision your whole family is aligned on, a budget that reflects reality, and a roadmap that turns your wedding from overwhelming to inevitable.</p>
+    <div class="cta-price">
+      <div class="price">₹1,50,000</div>
+      <div class="price-note">Fixed fee · 3 weeks · Fully credited if you engage us for planning</div>
+    </div>
+    <a href="#" class="cta-btn">Book Your Discovery Sprint</a>
+    <p class="cta-or">or</p>
+    <p class="cta-contact">Call us at <a href="#">+91 98765 43210</a> · Email <a href="#">hello@vermillionstudio.in</a></p>
+    <div class="cta-guarantee">
+      <p><strong>Our guarantee:</strong> If at the end of Week 1 you feel Discovery isn't delivering value, we'll refund your fee in full. No questions, no awkwardness. We've never had to.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-min">
+  <p>© 2026 The Vermillion Studio</p>
+  <a href="#">vermillionstudio.in</a>
+</div>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('vis'), i * 50);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
